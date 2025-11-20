@@ -10,7 +10,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-        lowercase: true
     },
     password: {
         type: String,
@@ -18,7 +17,7 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['student', 'teacher', 'admin'], 
+        enum: ['student', 'admin'], 
         default: 'student',
         required: true
     },
