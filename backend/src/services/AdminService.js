@@ -1,5 +1,7 @@
-import Admin from "../modules/AdminRegister.js"; 
+import Admin from "../modules/AdminModule.js"; 
 import bcrypt from "bcrypt";
+import User from "../modules/userModule.js";
+import jwt from "jsonwebtoken"
 
 
 export const AdminRegister = async (req, res) => {
@@ -45,7 +47,6 @@ export const AdminRegister = async (req, res) => {
     });
   }
 };
-
 export const AdminLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -73,9 +74,16 @@ export const AdminLogin = async (req, res) => {
       });
     }
 
+    const token = jwt.sign(
+      { id: admin._id, role: admin.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" } 
+    );
+
     res.status(200).json({
       success: true,
       message: "Admin login successful",
+      token, 
       admin: {
         id: admin._id,
         name: admin.name,
