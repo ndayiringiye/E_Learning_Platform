@@ -8,11 +8,11 @@ if(!email || !password){
     return res.status(404).json({message : "both email and password are required here ...",})
 };
 try {
-    const user = User.find({email, password})
+    const user = await User.findOne({email})
     if(!user){
-        return res.status(404).jsos({message: "user does not exist", success: false})
-    };
-    const isMatched = User.compare({email: email.User, password: password.User});
+        return res.status(401).jsos({message: "invalid credential", success: false})
+    };                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+    const isMatched = await User.comparePassword({password});
     if(!isMatched){
         try {
             res.status(404).json({success: false, message: "user credential are matched successfully", data: isMatched});

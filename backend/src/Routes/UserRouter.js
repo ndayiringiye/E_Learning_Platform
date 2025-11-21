@@ -1,5 +1,11 @@
-import { Express } from "express";
-import UserRegister from "../services/userService.js";
- const router = Express();
- router.post("users/signup", UserRegister);
- export default router;
+import express from "express";
+import UserRegister from "../services/userService.js"; 
+import { AdminRegister , AdminLogin} from "../services/AdminService.js";
+
+const router = express.Router();
+
+router.post("/users/signup", UserRegister);
+router.post("/users/admin", AdminRegister);
+router.post("users/adminlogin", AdminLogin);
+
+export default router;
